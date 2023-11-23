@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div id="home">
+      <form @submit.prevent="save">
+        <div v-for="(field, key) in formData" :key="key" class="form-group">
+          <label :for="field.id"> {{ field.label }} </label>
+
+          <input
+            v-if="field.fieldType == 'input'"
+            :id="field.id"
+            v-model="field.value"
+            :type="field.type"
+            :class="{ 'error-border': errors[key] }"
+          />
+          <span class="error-message" v-if="errors[key]">
+            {{ errors[key] }}
+          </span>
+        </div>
+
+        <button type="submit">Submit</button>
+      </form>
+
+      <div v-if="responseMessage">
+        <p>{{ responseMessage }}</p>
+      </div>
+    </div>
+    <script src="lib/vue.global.js"></script>
+    <script src="app/home.js"></script>
+  </body>
+</html>
